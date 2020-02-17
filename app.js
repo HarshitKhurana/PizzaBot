@@ -27,25 +27,6 @@ function insert_in_db(user_name, user_number, pizza_type, order_id, order_time) 
         if (redisData == undefined) {
             console.log ("REDIS returned empty|null|undefined\n")
         }
-        else {
-            client.get(order_id)
-        }
-    });
-}
-
-function get_order_state(order_id) {
-        order_id = String(order_id);
-        console.log("order_id as key in redis: ", order_id);
-        let order_time = "";
-        client.get(order_id , function(err, data) {
-        if (err) {
-            console.log ("Error pulling form redis: ",err);
-            return -1;
-        }
-        else {
-            console.log("redis out: ", data);
-            return order_time;
-        }
     });
 }
 
@@ -69,13 +50,33 @@ app.get('/new_order' , function(req,res){
     res.json({"order_id": order_id});
 });
 
+
+ function get_order_state(order_id) {
+        order_id = String(order_id);
+        console.log("order_id as key in redis: ", order_id);
+        let order_time = "";
+        client.get(order_id , function(err, data) {
+        if (err || data === null) {
+            console.log ("Error pulling form redis: ",err);
+            return -1;
+        }
+        else {
+            order_json = JSON.parse(data);
+            console.log("redis out: ", data);
+            return data["order_time"];
+        }
+    });
+}
+
 app.get('/order_status' , function(req,res){
     console.log ('Requested /order_status: ',req.query)
     let order_id = req.query.order_id;
     if (order_id == "")
         res.json({'response':'order_id not found'});
+    order_id = String(order_id);
     let curr_time = Number(new Date)/1000;  // In seconds
-    let order_time =  131323232;
+    let order_time = -1;
+
     order_time = get_order_state(order_id);
     let response_str = "";
     if (order_time == -1)
@@ -84,7 +85,7 @@ app.get('/order_status' , function(req,res){
         response_str = "Yayy! Order Completed"
     else {
         diff = Math.floor(curr_time-order_time);
-        response_str = "Your pizza will take " + String() + "seconds more";
+        response_str = "Your pizza will take " + String(diff) + "seconds more";
     }
     res.json({"response": response_str});
 });
@@ -94,7 +95,7 @@ client.on('connect', function() {
   console.log('connected to redis');
 });
 
-app.listen(8080, function (req , res) {
+app.listen(80, function (req , res) {
     console.log ("__dirname : " , __dirname)
     console.log ("Server started on http://127.0.0.1:8080")
 });
