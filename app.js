@@ -108,6 +108,9 @@ app.get('/order_status' , async function(req,res){
     res.json({"response": response_str});
 });
 
+app.get('/*',function(req,res){
+  res.sendFile(__dirname + '/404.html'); // __dirname is a method of global object
+});
 
 client.on('connect', function() {
 
