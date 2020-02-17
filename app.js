@@ -3,6 +3,19 @@ var bodyParser = require('body-parser')
 var util = require('util')
 var app = express();
 
+/*
+Author: Harshit
+
+This is a simple node-express based back-end for YoYo Pizza Bot(A pizza ordering chatbot).
+It has 2 functionalities:
+    1. User can order a new pizza
+        -> API will return the order_id.
+    2. User can ask for the status of pizza.
+        -> API will return time left in completion of the pizza.
+
+Note: Pizza order completion takes 3 minutes(hard-coded).
+*/
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -97,6 +110,7 @@ app.get('/order_status' , async function(req,res){
 
 
 client.on('connect', function() {
+
   console.log('connected to redis');
 });
 
