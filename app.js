@@ -88,7 +88,7 @@ app.get('/order_status' , async function(req,res){
         response_str = "Yayy! Order Completed"
     else {
         diff = Math.floor((order_time+completion_time)-curr_time);
-        response_str = "Your pizza will take " + String(diff/60) + "minutes more";
+        response_str = "Your pizza will take " + String(diff) + "more seconds";
     }
     res.json({"response": response_str});
 });
