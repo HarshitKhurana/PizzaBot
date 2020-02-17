@@ -98,7 +98,7 @@ client.on('connect', function() {
   console.log('connected to redis');
 });
 
-app.listen(8080, function (req , res) {
+app.listen(80, function (req , res) {
     console.log ("__dirname : " , __dirname)
-    console.log ("Server started on http://127.0.0.1:8080")
+    console.log ("Server started on http://127.0.0.1:80")
 });
