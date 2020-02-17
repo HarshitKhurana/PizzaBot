@@ -50,7 +50,9 @@ app.get('/new_order' , function(req,res){
 
     console.log ("pizza_type : ", pizza_type)
     insert_in_db (user_name, user_number, pizza_type , order_id , order_time);
-    res.json({"order_id": order_id});
+    let response_str = "Order Confirmed! Your order id is: " + String(order_id);
+    console.log(response_str);
+    res.json({"response": response_str});
 });
 
 
@@ -88,7 +90,7 @@ app.get('/order_status' , async function(req,res){
         response_str = "Yayy! Order Completed"
     else {
         diff = Math.floor((order_time+completion_time)-curr_time);
-        response_str = "Your pizza will take " + String(diff) + "more seconds";
+        response_str = "Your pizza will be ready in " + String(diff) + " seconds";
     }
     res.json({"response": response_str});
 });

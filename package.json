@@ -1,7 +1,7 @@
 {
   "name": "pizza_chatbot",
   "version": "1.0.0",
-  "description": "",
+  "description": "* This is back-end for a simple YoYo Pizza Chatbot. * It uses REDIS as is back-end as a database for storing pizza orders. * It uses dialogFlow API for chatbot functionality.",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,5 +15,16 @@
   "bugs": {
     "url": "https://github.com/HarshitKhurana/PizzaBot/issues"
   },
-  "homepage": "https://github.com/HarshitKhurana/PizzaBot#readme"
+  "homepage": "https://github.com/HarshitKhurana/PizzaBot#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "redis": "^3.0.2"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "chatbot",
+    "dialogflow",
+    "pizza",
+    "nodejs"
+  ]
 }
